@@ -1,0 +1,32 @@
+#In #begin #of #file #you #may #write #comments #in #such #way
+
+#There #should #be #free #block: #races #classes #units
+
+races	2
+{
+
+0	first_race
+1	second_race
+
+};
+
+classes	3
+{
+
+0	warrior		00	0 0 0 0 0 0 0 0 0 0	0 0 0 0 0 0 0 0 0 0	0 0 0 0 0 0 0 0 0 0		0 0 0 0 0 0 0 0 0 0	0 0 0 0 0 0 0 0 0 0
+1	magician	00	0 0 0 0 0 0 0 0 0 0	0 0 0 0 0 0 0 0 0 0	0 0 0 0 0 0 0 0 0 0		0 0 0 0 0 0 0 0 0 0	0 0 0 0 0 0 0 0 0 0
+2	trader		00	0 0 0 0 0 0 0 0 0 0	0 0 0 0 0 0 0 0 0 0	0 0 0 0 0 0 0 0 0 0		0 0 0 0 0 0 0 0 0 0	0 0 0 0 0 0 0 0 0 0
+
+};
+
+units	6
+{
+
+0	first_race	first	0 0 0 0 0 0 0 0 0 0	00	10 10 10
+1	first_race	second	0 0 0 0 0 0 0 0 0 0	00	10 10 10
+2	first_race	third	0 0 0 0 0 0 0 0 0 0	00	10 10 10
+3	second_race	forth	0 0 0 0 0 0 0 0 0 0	00	10 10 10
+4	second_race	fith	0 0 0 0 0 0 0 0 0 0	00	10 10 10
+5	second_race	sixth	0 0 0 0 0 0 0 0 0 0	00	10 10 10
+
+};
