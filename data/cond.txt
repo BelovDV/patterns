@@ -1,0 +1,43 @@
+main
+7
+
+main
+Greetings!
+4
+new_game new_game
+load_game load_game
+options options
+exit exit_message
+
+new_game
+It_isn't_ready
+1
+exit main
+
+load_game
+It_isn't_ready
+1
+exit main
+
+options
+It_is_on_working,_sorry
+2
+screen_resolution screen
+exit main
+
+screen
+testing_ability
+3
+1600:900 options
+1500:800 options
+1920:1080 options
+
+exit_message
+are_you_sure?
+2
+No main
+Yes exit
+
+exit
+exit
+0
