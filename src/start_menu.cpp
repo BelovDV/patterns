@@ -2,38 +2,44 @@
 
 Start_menu::Start_menu(sf::RenderWindow& window) :
 	window(window),
-	fiction("../data/cond.txt")
+	fiction("../data/cond.txt"),
+	settings("../data/settings.txt")
 {
-	font.loadFromFile("../data/font.ttf");
-	t_background.loadFromFile("../data/image/screen.jpg");
+	t_background.loadFromFile("../data/image/castle_1920_1080_my.jpg");
 	s_background.setTexture(t_background);
 
-	last_selected_button = 0;
-	leftup_angle = sf::Vector2i(1000, 500);
-	font_size_message = 35;
-	font_size_other = 30;
-	string_length = 100;
+	angle = sf::Vector2i(1200, 500);
+}
+
+void Start_menu::refresh()
+{
+	
 }
 
 void Start_menu::event_movemouse()
 {
-	auto coord = sf::Vector2i(window.mapPixelToCoords(sf::Mouse::getPosition()));
-	for (int i = 0; i != buttom_coordinates.size(); ++i)
-		if (buttom_coordinates[i].contains(coord))
+	auto coord = sf::Mouse::getPosition();
+	for (int i = 0; i != buttons.size(); ++i)
+		if (buttons[i].contains(coord))
 		{
-			if (last_selected_button != -1)
-				options[last_selected_button].setColor(sf::Color::White);
-			last_selected_button = i;
+			if (selected != -1)
+				options[selected].setColor(sf::Color::Black);
+			selected = i;
 			options[i].setColor(sf::Color::Green);
 			return;
 		}
+	if (selected != -1)
+	{
+		options[selected].setColor(sf::Color::Black);
+		selected = -1;
+	}
 }
 
 void Start_menu::event_pressmouse()
 {
-	auto coord = sf::Vector2i(window.mapPixelToCoords(sf::Mouse::getPosition()));
-	for (int i = 0; i != buttom_coordinates.size(); ++i)
-		if (buttom_coordinates[i].contains(coord))
+	auto coord = sf::Mouse::getPosition();
+	for (int i = 0; i != buttons.size(); ++i)
+		if (buttons[i].contains(coord))
 		{
 			fiction.press(i);
 			set_coordinates();
@@ -43,43 +49,75 @@ void Start_menu::event_pressmouse()
 
 void Start_menu::event_presskey(sf::Keyboard::Key key)
 {
-	if (key == sf::Keyboard::Enter && last_selected_button != -1)
-		fiction.press(last_selected_button), set_coordinates();
-	if (key == sf::Keyboard::Up)
-		if (last_selected_button != 0 && last_selected_button != -1)
-		{
-			options[last_selected_button].setColor(sf::Color::White);
-			--last_selected_button;
-			options[last_selected_button].setColor(sf::Color::Green);
-		}
-		else
-		{
-			if (last_selected_button != -1)
-				options[last_selected_button].setColor(sf::Color::White);
-			last_selected_button = fiction.get().ways.size() - 1;
-			options[last_selected_button].setColor(sf::Color::Green);
-		}
-	if (key == sf::Keyboard::Down && last_selected_button != fiction.get().ways.size() - 1)
+	if (selected != -1)
+		options[selected].setColor(sf::Color::Black);
+
+	if (key == sf::Keyboard::Enter && selected != -1)
 	{
-		if (last_selected_button != -1)
-			options[last_selected_button].setColor(sf::Color::White);
-		++last_selected_button;
-		options[last_selected_button].setColor(sf::Color::Green);
+		fiction.press(selected);
+		set_coordinates();
 	}
+	else if (key == sf::Keyboard::Up)
+	{
+		if (selected == -1 || selected == 0)
+			selected = options.size() - 1;
+		else
+			--selected;
+	}
+	else if (key == sf::Keyboard::Down)
+	{
+		if (selected == options.size() - 1)
+			selected = 0;
+		else
+			++selected;
+	}
+
+	if (selected != -1)
+		options[selected].setColor(sf::Color::Green);
 }
 
-void Start_menu::options_screen() // TODO - safe settings
+void Start_menu::options_screen()
 {
-	if (fiction.get_last_target() == "1600:900")
-		window.setSize(sf::Vector2u(1600, 900));
-	if (fiction.get_last_target() == "1500:800")
-		window.setSize(sf::Vector2u(1500, 800));
-	if (fiction.get_last_target() == "1920:1080")
-		window.setSize(sf::Vector2u(1920, 1080)); // TODO - image
+	
+}
+
+void Start_menu::options_fonts()
+{
+	Text::text_list_name name;
+	auto& vsp = fiction.get_last_condition();
+	if (*vsp[0] == "title")
+		name = Text::text_list_name::e_title;
+	else if (*vsp[0] == "text")
+		name = Text::text_list_name::e_text;
+	else if (*vsp[0] == "offer")
+		name = Text::text_list_name::e_offer;
+	else
+		return;
+
+	if (*vsp[1] == "10")
+		settings.set_text_size(name, 10);
+	if (*vsp[1] == "15")
+		settings.set_text_size(name, 15);
+	if (*vsp[1] == "20")
+		settings.set_text_size(name, 20);
+	if (*vsp[1] == "25")
+		settings.set_text_size(name, 25);
+	if (*vsp[1] == "30")
+		settings.set_text_size(name, 30);
+
+	if (*vsp[2] == "first")
+		settings.set_font(name, "../data/font.ttf");
+	if (*vsp[2] == "second")
+		settings.set_font(name, "../data/second.ttf");
+
+	fiction.forget();
+
+	set_coordinates();
 }
 
 void Start_menu::work()
 {
+	refresh();
 	set_coordinates();
 	draw();
 
@@ -90,15 +128,20 @@ void Start_menu::work()
 		{
 			if (event.type == sf::Event::EventType::MouseMoved)
 				event_movemouse();
-			if (event.type == sf::Event::EventType::MouseButtonPressed &&
-				event.mouseButton.button == sf::Mouse::Left)
+			else if (event.type == sf::Event::EventType::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
 				event_pressmouse();
-			if (event.type == sf::Event::EventType::KeyPressed)
+			else if (event.type == sf::Event::EventType::KeyPressed)
 				event_presskey(event.key.code);
 
-			if (fiction.get_last_condition() == "screen")
-				options_screen();
-			if (fiction.get_condition() == "exit")
+			if (fiction.get_last_target_name() == "apply")
+			{
+				if (fiction.get_position() == "screen")
+					options_screen();
+				else if (fiction.get_position() == "fonts")
+					options_fonts();
+			}
+			
+			if (fiction.get_position() == "exit")
 				return;
 
 			draw();
@@ -111,39 +154,57 @@ void Start_menu::work()
 
 void Start_menu::set_coordinates()
 {
-	last_selected_button = -1;
+	selected = -1;
 
 	options.clear();
-	buttom_coordinates.clear();
+	buttons.clear();
+	messages.clear();
 
-	auto& condition = fiction.get();
+	auto& info = fiction.get();
+	auto& ways = fiction.get().ways;
 
-	sf::Text mes(condition.message, font, font_size_message);
-	mes.move(leftup_angle.x, leftup_angle.y); // TODO
-	message = mes;
-
-	for (int i = 0; i != condition.ways.size(); ++i)
+	messages.push_back(Text::text.generate(info.message, angle));
+	int offer_heigh = Text::offer.get_size() + 5;
+	sf::Vector2i position(angle + sf::Vector2i(10, 5 + Text::text.get_size() * Text::text.get_number_line(info.message)));
+	for (int i = 0; i != ways.size(); ++i, position.y +=offer_heigh)
 	{
-		sf::Text text(condition.ways[i].name, font, font_size_other);
-		text.move(
-			leftup_angle.x, 
-			(font_size_message + 10) * fiction.get_message_size() + leftup_angle.y + i * font_size_other);
-		options.push_back(text);
+		options.push_back(Text::offer.generate(ways[i].name, position));
+		buttons.push_back(sf::Rect<int>(options.back().getGlobalBounds()));
+	}
 
-		buttom_coordinates.push_back(sf::Rect<int>(
-			leftup_angle.x, 
-			(font_size_message + 10) * fiction.get_message_size() + leftup_angle.y + i * font_size_other,
-			string_length,
-			font_size_other + 5));
+	int drop = fiction.get_chosen_list();
+	auto& condition = fiction.get_condition();
+	for (int i = 0; i != info.lists.size(); ++i, position.y += offer_heigh)
+	{
+		options.push_back(Text::offer.generate(*condition[i], position));
+		buttons.push_back(sf::Rect<int>(options.back().getGlobalBounds()));
+		if (i == drop)
+			for (int j = 0; j != info.lists[drop].values.size(); ++j)
+			{
+				position.y += offer_heigh - 5;
+				options.push_back(Text::offer.generate(info.lists[drop].values[j], position + sf::Vector2i(5, 0)));
+				buttons.push_back(sf::Rect<int>(options.back().getGlobalBounds()));
+			}
 	}
 }
 
 void Start_menu::draw()
 {
 	window.draw(s_background);
-	window.draw(message);
+
 	for (const auto& iter : options)
 		window.draw(iter);
+	for (const auto& iter : messages)
+		window.draw(iter);
+	for (const auto& iter : buttons) // debug
+	{
+		sf::RectangleShape rect(sf::Vector2f(iter.width, iter.height));
+		rect.move(iter.left, iter.top);
+		rect.setOutlineColor(sf::Color::White);
+		rect.setOutlineThickness(1);
+		rect.setFillColor(sf::Color::Transparent);
+		window.draw(rect);
+	}
 
 	window.display();
 }

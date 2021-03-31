@@ -7,6 +7,14 @@ add_executable(game_fight src/main.cpp
 	src/start_menu.cpp
 	src/interactive_fiction.cpp
 	src/data.cpp
+	src/settings.cpp
+	src/text.cpp
+	src/log.cpp
+	src/field.cpp
+	src/player.cpp
+	src/ai.cpp
+	src/chooser.cpp
+	src/choosing.cpp
 )
 
 set(SFML_DIR "${CMAKE_CURRENT_LIST_DIR}/sfml/lib/cmake/SFML")

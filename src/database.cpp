@@ -37,12 +37,15 @@ void Database::read()
 		errors.push_back("Read: Didn't find '{' with classes");
 	if (number_class < 0 || number_class > 1000)
 		errors.push_back("Read: Strange value number of classes");
-	classes.resize(number_class);
-	for (auto& it : classes)
+	classes.resize(number_race);
+	classes[0].resize(number_class);
+	for (auto& it : classes[0])
 	{
 		fin >> it;
 		class_id[it.name] = it.id;
 	}
+	for (int i = 1; i <= number_class; ++i)
+		classes[i] = classes[0];
 	fin >> close;
 	if (close != "};")
 		errors.push_back("Read: Didn't find '};' with classes");

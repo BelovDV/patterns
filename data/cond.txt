@@ -1,5 +1,4 @@
 main
-7
 
 main
 Greetings!
@@ -8,35 +7,53 @@ new_game new_game
 load_game load_game
 options options
 exit exit_message
+0
 
 new_game
 It_isn't_ready
 1
 exit main
+0
 
 load_game
 It_isn't_ready
 1
 exit main
+0
 
 options
 It_is_on_working,_sorry
-2
+3
 screen_resolution screen
+fonts fonts
 exit main
+0
+
+fonts
+choose_pattern,_it's_size_and_font
+2
+exit options
+apply fonts
+3
+pattern 3
+title offer text
+size 5
+10 15 20 25 30
+font 2
+first second
 
 screen
 testing_ability
-3
-1600:900 options
-1500:800 options
+1
 1920:1080 options
+0
 
 exit_message
 are_you_sure?
 2
 No main
 Yes exit
+0
 
 exit
 exit
