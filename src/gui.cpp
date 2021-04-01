@@ -7,7 +7,7 @@ GUI::GUI(Gui_interface* worker) :
 	window(sf::VideoMode(1820, 1080), "", sf::Style::None)
 {
 	t_background.push_back(new sf::Texture);
-	if (!t_background[0]->loadFromFile("../data/image/castle_1920_1080_my.jpg"))
+	if (!t_background[0]->loadFromFile("../data/image/castle_1920_1080_my.jpeg"))
 		Log::add("gui", "cannot load image: ");
 	s_background.push_back(sf::Sprite(*t_background[0]));
 
