@@ -1,6 +1,8 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <vector>
+#include <memory>
 
 class Text_editor
 {
