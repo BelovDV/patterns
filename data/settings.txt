@@ -1,0 +1,6 @@
+0 0
+
+30 ../data/font.ttf
+23 ../data/font.ttf
+25 ../data/font.ttf
+20 ../data/font.ttf
