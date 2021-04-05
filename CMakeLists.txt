@@ -1,34 +1,14 @@
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.10)
 
 project(Game_fight)
 
+aux_source_directory(src SOURCES)
+
 add_executable(game_fight src/main.cpp
-	src/database.cpp
-	src/start_menu.cpp
-	src/interactive_fiction.cpp
-	src/data.cpp
-	src/settings.cpp
-	src/text.cpp
-	src/log.cpp
-	src/field.cpp
-	src/player.cpp
-	src/ai.cpp
-	src/chooser.cpp
-	src/position.cpp
-	src/gamer.cpp
-	src/game.cpp
-	src/field.cpp
-	src/random.cpp
-	src/gui.cpp
-	src/gui_interface
-	src/beginning.cpp
-	src/game_interface.cpp
-	src/gui_objects.cpp
+	${SOURCES}
 )
 
-set(SFML_DIR "${CMAKE_CURRENT_LIST_DIR}/sfml/lib/cmake/SFML")
-find_package(SFML 2.5 REQUIRED graphics window system)
-target_link_libraries(game_fight sfml-graphics sfml-main)
+target_link_libraries(game_fight sfml-graphics sfml-window)
 
 macro(copy_directory _src _dst)
     execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${_src} ${_dst}
@@ -42,5 +22,3 @@ macro(copy_directory _src _dst)
 endmacro()
 
 copy_directory("${PROJECT_SOURCE_DIR}/data" "${PROJECT_BINARY_DIR}/data")
-
-#add_custom_command(TARGET game_fight PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory #"${PROJECT_SOURCE_DIR}/data" "${PROJECT_BINARY_DIR}/data")
