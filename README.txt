@@ -9,8 +9,7 @@
 
 
 Сборка проекта:
-windows, visual studio. Из основной папки начать сборку. В полученом решении назначить запускаемым проектом game_fight. 
-В директорию с исполняемым файлом добавить библиотеки из sfml/bin.
-linux, gcc. Проверено в виртуальной lubuntu. Установить sfml ("sudo apt-get install libsfml-dev"), в src выполнить "g++ -c *.cpp",
-затем "g++ *.o -o game_fight -lsfml-graphics -lsfml-window -lsfml-system". Запускать ./game_fight (официальная инструкция https://www.sfml-dev.org/tutorials/2.5/start-linux.php).
+windows, visual studio - на данный момент не поддерживается.
+linux, gcc. Проверено в виртуальной lubuntu. Установить sfml ("sudo apt-get install libsfml-dev"). Собрать с помощью cmake.
+
 В исходных файлах используется путь "../include/   " для подключения заголовков и "../data/   " для получения ресурсов.
