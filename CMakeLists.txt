@@ -8,7 +8,7 @@ add_executable(game_fight src/main.cpp
 	${SOURCES}
 )
 
-target_link_libraries(game_fight sfml-graphics sfml-window)
+target_link_libraries(game_fight sfml-graphics sfml-window sfml-system)
 
 macro(copy_directory _src _dst)
     execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${_src} ${_dst}
