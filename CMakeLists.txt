@@ -8,7 +8,15 @@ add_executable(game_fight src/main.cpp
 	${SOURCES}
 )
 
-target_link_libraries(game_fight sfml-graphics sfml-window sfml-system)
+if (UNIX)
+	target_link_libraries(game_fight sfml-graphics sfml-window sfml-system)
+elseif (WIN32)
+	set(SFML_DIR "${CMAKE_CURRENT_LIST_DIR}/sfml/lib/cmake/SFML")
+	find_package(SFML 2.5 REQUIRED graphics window system)
+	target_link_libraries(game_fight sfml-graphics sfml-main)
+else ()
+	message(FATAL_ERROR "unknown system")
+endif ()
 
 macro(copy_directory _src _dst)
     execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${_src} ${_dst}
