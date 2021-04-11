@@ -7,8 +7,6 @@ namespace Data
 {
 	struct Constances
 	{
-		const static std::string _file_name;
-
 		static const int unit_number_info = 10;
 		static const int unit_number_skills = 2;
 		static const int class_number_skills = 2;
