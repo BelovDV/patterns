@@ -16,6 +16,12 @@ GUI::GUI(Gui_interface* worker, Window_interface* window, Settings* settings) :
 	window->set_screen(gi::Rect(0, 0, settings->get_screen().x, settings->get_screen().y));
 }
 
+GUI::~GUI()
+{
+	for (auto it : objects)
+		delete it;
+}
+
 void GUI::work()
 {
 	refresh();
@@ -53,7 +59,6 @@ void GUI::draw()
 
 		gi::Shape_rect* vsp = gi::Shape_rect::generate();
 		auto rect = it->get_area();
-		rect.width += 10;
 		vsp->set_rect(rect);
 		
 		vsp->set_inner_color(gi::Color(0, 0, 0, 0));

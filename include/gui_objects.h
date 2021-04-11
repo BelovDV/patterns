@@ -20,6 +20,7 @@ namespace gi
 	{
 	public:
 		Object(Position_type type);
+		virtual ~Object() {}
 	public:
 		virtual void draw(Window_interface& window) const = 0;
 		virtual void draw(Window_interface* window) const
@@ -51,32 +52,27 @@ namespace gi
 	class Label : public Object
 	{
 	public:
-		Label(Position_type position, gi::Text* text);
+		Label(Position_type position) : Object(position) {}
 	public:
-		virtual void draw(Window_interface& window) const override;
-		const gi::Text& get_text() { return *text; }
-		virtual void set_position(Vector position) override;
-	protected:
-		gi::Text* text;
+		virtual void draw(Window_interface& window) const = 0;
+		virtual const gi::Text& get_text() const = 0;
+		virtual void set_position(Vector position) = 0;
 	};
 	class Button : public Label, public Executable
 	{
 	public:
-		Button(Position_type position, int id, gi::Text* text);
-		Button(Position_type position, int id, gi::Text* text, gi::Rect area);
+		Button(Position_type position, int id) : Label(position), Executable(id) {}
 	public:
-		void select_on() override;
-		void select_off() override;
-	private:
+		virtual void select_on() = 0;
+		virtual void select_off() = 0;
 	};
 	class Input : public Object {};
 	class List_objects : public Object
 	{
 	public:
-		List_objects(Position_type position, std::vector<Object*>&& objects);
+		List_objects(Position_type position) : Object(position) {}
 	public:
-		virtual void draw(Window_interface& window) const override;
-	private:
-		std::vector<Object*> objects;
+		virtual void draw(Window_interface& window) const = 0;
+		//virtual void set_position(gi::Vector pos) = 0;
 	};
 }

@@ -10,4 +10,4 @@ void Log::add(const std::string& source, const std::string& message)
 		out << source << '\n' << message << "\n\n";
 }
 
-std::ofstream Log::out = std::ofstream("log.txt");
+std::ofstream Log::out = std::ofstream("game_log.txt");
