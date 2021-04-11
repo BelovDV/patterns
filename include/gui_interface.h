@@ -13,15 +13,15 @@ public:
 	class Target_form
 	{
 	public:
-		Target_form(std::vector<Gui_objects::Object*>& objects) : objects(objects) {}
+		Target_form(std::vector<gi::Object*>& objects) : objects(objects) {}
 	public:
-		void add(Gui_objects::Object* object)
+		void add(gi::Object* object)
 		{
 			// Object* - form.add(0, 0, new Label(...));
 			objects.push_back(object);
 		}
 	private:
-		std::vector<Gui_objects::Object*>& objects;
+		std::vector<gi::Object*>& objects;
 	};
 public:
 	Gui_interface() {}

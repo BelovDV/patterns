@@ -39,14 +39,14 @@ void Settings::set_screen(int width, int height)
 	screen_size.y = height;
 }
 
-sf::Vector2u Settings::get_screen()
+gi::Vector Settings::get_screen()
 {
 	return screen_size;
 }
 
-void Settings::set_text(Text::Type type, const sf::Text& text)
+void Settings::set_text(Text::Type type, gi::Text& text)
 {
-	Text::patterns[type]->set_text(text);
+	Text::patterns[type]->set_text(&text);
 }
 
 void Settings::set_font(Text::Type type, const std::string& file)

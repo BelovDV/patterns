@@ -2,7 +2,6 @@
 
 #include "../include/start_menu.h"
 
-using namespace Gui_objects;
 
 Start_menu::Start_menu(Settings& settings) :
 	Interactive_fiction("../data/cond.txt"),
@@ -42,23 +41,23 @@ void Start_menu::options_fonts()
 
 void Start_menu::get_targets(Gui_interface::Target_form& form)
 {
-	auto space = Position_type::shifting_space;
+	auto space = gi::Position_type::shifting_space;
 	auto& current = conditions[position];
 	auto& ways = current.ways;
 	if (position == "main")
-		form.add(new Label(space, -1, Text::generate(Text::title, current.message)));
+		form.add(new gi::Label(space, Text::generate(Text::title, current.message)));
 	else
-		form.add(new Label(space, -1, Text::generate(Text::text, current.message)));
+		form.add(new gi::Label(space, Text::generate(Text::text, current.message)));
 
 	for (int i = 0; i != ways.size(); ++i)
-		form.add(new Button(space, i, i, Text::generate(Text::offer, ways[i].name)));
+		form.add(new gi::Button(space, i, Text::generate(Text::offer, ways[i].name)));
 	int delta = ways.size();
 	for (int i = 0; i != current.lists.size(); ++i)
 	{
-		form.add(new Button(space, i + delta, i + delta, Text::generate(Text::offer, *condition[i])));
+		form.add(new gi::Button(space, i + delta, Text::generate(Text::offer, *condition[i])));
 		if (i == chosen_list && ++delta)
 			for (int j = 0; j != current.lists[chosen_list].values.size(); ++j, ++delta)
-				form.add(new Button(space, i + delta, i + delta, Text::generate(Text::offer_small, current.lists[chosen_list].values[j])));
+				form.add(new gi::Button(space, i + delta, Text::generate(Text::offer_small, current.lists[chosen_list].values[j])));
 	}
 }
 
