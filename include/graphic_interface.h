@@ -55,6 +55,7 @@ namespace gi
 	public:
 		static Texture* generate();
 		virtual bool load(const std::string& file) = 0;
+		virtual Vector size() const = 0;
 	};
 	class Font
 	{
@@ -86,6 +87,7 @@ namespace gi
 		virtual void set_color(Color) = 0;
 		virtual void set_text(const std::string& text) = 0;
 		virtual void draw(Window_interface& window) const = 0;
+		virtual const std::string& get_text() const = 0;
 	};
 	class Sprite : public Drawable
 	{
@@ -96,6 +98,7 @@ namespace gi
 		virtual void draw(Window_interface& window) const = 0;
 		virtual void set_position(Vector position) = 0;
 		virtual void set_scale(double x_scale, double y_scale) = 0;
+		virtual void set_texture_rect(Rect rect) = 0;
 	};
 	class Shape_rect : public Drawable
 	{

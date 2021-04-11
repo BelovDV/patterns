@@ -100,6 +100,11 @@ bool Texture::load(const std::string& file)
 	return loadFromFile(file);
 }
 
+gi::Vector Texture::size() const
+{
+	return gi::Vector(this->getSize().x, this->getSize().y);
+}
+
 bool Font::load(const std::string& file)
 {
 	return loadFromFile(file);
@@ -123,6 +128,11 @@ void Sprite::set_texture(const gi::Texture& texture)
 void Sprite::set_scale(double x_scale, double y_scale)
 {
 	setScale(sf::Vector2f(x_scale, y_scale));
+}
+
+void Sprite::set_texture_rect(gi::Rect rect)
+{
+	this->setTextureRect(sf::IntRect(rect.left, rect.top, rect.width, rect.height));
 }
 
 void Shape_rect::draw(Window_interface& window) const

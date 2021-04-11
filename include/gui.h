@@ -11,6 +11,7 @@ class GUI
 {
 public:
 	GUI(Gui_interface* worker, Window_interface* window, Settings* settings);
+	~GUI();
 public:
 	void work();
 	void draw();
