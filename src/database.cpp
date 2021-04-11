@@ -2,6 +2,48 @@
 
 #include<fstream>
 
+std::ifstream& operator>>(std::ifstream& in, Data::Unit::Data& data)
+{
+	in
+		>> data.id
+		>> data.race
+		>> data.name;
+	for (int i = 0; i != Data::Constances::unit_number_info; ++i)
+		in >> data.info.parameter[i];
+	in >> data.info.skills;
+	in
+		>> data.cost_A
+		>> data.cost_B
+		>> data.cost_C;
+	return in;
+}
+
+std::ifstream& operator>>(std::ifstream& in, Data::Class::Data& data)
+{
+	in
+		>> data.id
+		>> data.name
+		>> data.skills;
+	for (int i = 0; i != Data::Constances::unit_number_info; ++i)
+		in
+		>> data.start_active[i].type
+		>> data.start_active[i].value
+		>> data.start_active[i].cost;
+	for (int i = 0; i != Data::Constances::unit_number_info; ++i)
+		in
+		>> data.start_passive[i].type
+		>> data.start_passive[i].value;
+	return in;
+}
+
+std::ifstream& operator>>(std::ifstream& in, Data::Race::Data& data)
+{
+	in
+		>> data.id
+		>> data.name;
+	return in;
+}
+
 void Database::read()
 {
 	std::ifstream fin(Data::Constances::_file_name);
@@ -10,69 +52,34 @@ void Database::read()
 	fin >> word;
 	while (word[0] == '#')
 		fin >> word;
-
 	// Read races
 	fin >> number_race >> open;
-	if (word != "races")
-		errors.push_back("Read: Didn't find races");
-	if (open != "{")
-		errors.push_back("Read: Didn't find '{' with races");
-	if (number_race < 0 || number_race > 1000)
-		errors.push_back("Read: Strange value number of races");
 	races.resize(number_race);
 	for (auto& it : races)
-	{
 		fin >> it;
-		race_id[it.name] = it.id;
-	}
 	fin >> close;
-	if (close != "};")
-		errors.push_back("Read: Didn't find '};' with races");
-
 	// Read classes
 	fin >> word >> number_class >> open;
-	if (word != "classes")
-		errors.push_back("Read: Didn't find classes");
-	if (open != "{")
-		errors.push_back("Read: Didn't find '{' with classes");
-	if (number_class < 0 || number_class > 1000)
-		errors.push_back("Read: Strange value number of classes");
-	classes.resize(number_race);
-	classes[0].resize(number_class);
-	for (auto& it : classes[0])
-	{
+	classes.resize(number_class);
+	for (auto& it : classes)
 		fin >> it;
-		class_id[it.name] = it.id;
-	}
-	for (int i = 1; i <= number_class; ++i)
-		classes[i] = classes[0];
 	fin >> close;
-	if (close != "};")
-		errors.push_back("Read: Didn't find '};' with classes");
-
 	// Read units
 	fin >> word >> number_units >> open;
-	if (word != "units")
-		errors.push_back("Read: Didn't find units");
-	if (open != "{")
-		errors.push_back("Read: Didn't find '{' with units");
-	if (number_units < 0 || number_units > 100000)
-		errors.push_back("Read: Strange value number of units");
-	units.resize(number_race);
-	for (int i = 0; i != number_units; ++i)
-	{
-		Data::Unit::Data vsp;
-		fin >> vsp;
-		if (race_id.find(vsp.race) != race_id.end())
-			units[race_id[vsp.race]].push_back(vsp);
-		else
-			errors.push_back("Read:unit: race doesn't exists");
-	}
+	units.resize(number_units);
+	for (auto& it : units)
+		fin >> it;
 	fin >> close;
-	if (close != "};")
-		errors.push_back("Read: Didn't find '};' with units");
-
+	
 	fin.close();
+
+	for (auto& it : races)
+		race_id[it.name] = it.id;
+	for (auto& it : classes)
+		class_id[it.name] = it.id;
+	races_units.resize(number_race);
+	for (auto& it : units)
+		races_units[race_id[it.race]].push_back(it.id);
 }
 
 Database database;

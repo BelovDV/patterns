@@ -1,8 +1,10 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include "graphic_interface.h"
 
-namespace Gui_objects
+#include <vector>
+
+namespace gi
 {
 	enum Position_type
 	{
@@ -14,24 +16,27 @@ namespace Gui_objects
 		shifting_space,
 		count_of_types
 	};
-	class Object : public sf::Drawable
+	class Object : public gi::Drawable
 	{
 	public:
-		Object(Position_type type, int number);
+		Object(Position_type type);
+		virtual ~Object() {}
 	public:
-		sf::FloatRect get_area() const { return area; }
-		virtual void set_position(sf::Vector2f pos) = 0;
-		bool contain(sf::Vector2i pos) const { return get_area().contains(static_cast<sf::Vector2f>(pos)); }
-		bool contain(sf::Vector2f pos) const { return get_area().contains(pos); }
-		int get_number() { return number_in_position; }
+		virtual void draw(Window_interface& window) const = 0;
+		virtual void draw(Window_interface* window) const
+		{
+			this->draw(*window);
+		}
+		virtual gi::Rect get_area() const { return area; }
+		virtual void set_position(gi::Vector pos) = 0;
+		virtual bool contain(gi::Vector pos) const { return area.contain(pos); }
 		Position_type get_pos_type() { return pos_type; }
 		Object& operator*() { return *this; }
 		const Object& operator*() const { return *this; }
 	protected:
-		sf::Vector2f position;
-		int number_in_position;
 		Position_type pos_type;
-		sf::FloatRect area;
+		gi::Vector position;
+		gi::Rect area;
 	};
 	class Executable
 	{
@@ -47,41 +52,27 @@ namespace Gui_objects
 	class Label : public Object
 	{
 	public:
-		enum Back_type
-		{
-			none
-		};
+		Label(Position_type position) : Object(position) {}
 	public:
-		Label(Position_type position, int number, sf::Text text);
-		Label(Position_type position, int number, sf::Text text, sf::FloatRect area, Back_type type = none);
-	public:
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-		virtual void set_position(sf::Vector2f pos) override;
-		const sf::Text& get_text() { return text; }
-	protected:
-		sf::Text text;
-		Back_type type;
+		virtual void draw(Window_interface& window) const = 0;
+		virtual const gi::Text& get_text() const = 0;
+		virtual void set_position(Vector position) = 0;
 	};
 	class Button : public Label, public Executable
 	{
 	public:
-		Button(Position_type position, int number, int id, sf::Text text);
-		Button(Position_type position, int number, int id, sf::Text text, sf::FloatRect area, Back_type type = none);
+		Button(Position_type position, int id) : Label(position), Executable(id) {}
 	public:
-		void select_on() override { text.setColor(sf::Color::Green); }
-		void select_off() override { text.setColor(sf::Color::Black); }
-	private:
+		virtual void select_on() = 0;
+		virtual void select_off() = 0;
 	};
 	class Input : public Object {};
 	class List_objects : public Object
 	{
 	public:
-		List_objects(Position_type position, int number, Object* head, std::vector<Object*>&& objects);
+		List_objects(Position_type position) : Object(position) {}
 	public:
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-		virtual void set_position(sf::Vector2f pos) override;
-	private:
-		Object* head;
-		std::vector<Object*> objects;
+		virtual void draw(Window_interface& window) const = 0;
+		//virtual void set_position(gi::Vector pos) = 0;
 	};
 }

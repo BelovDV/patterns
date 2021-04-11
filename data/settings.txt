@@ -1,6 +1,6 @@
-0 0
+1820 1080
 
 30 ../data/font.ttf
 23 ../data/font.ttf
-25 ../data/font.ttf
+20 ../data/font.ttf
 20 ../data/font.ttf
