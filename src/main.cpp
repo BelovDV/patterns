@@ -6,8 +6,8 @@ int main()
 {
 	Settings settings("../data/settings.txt");
 	Start_menu menu(settings);
-	Graphic graphic;
-	GUI gui(&menu, &graphic);
+	Window graphic(settings.get_screen().x, settings.get_screen().y);
+	GUI gui(&menu, &graphic, &settings);
 	gui.work();
 	return 0;
 }

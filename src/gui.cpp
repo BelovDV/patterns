@@ -2,15 +2,18 @@
 
 using namespace gi;
 
-GUI::GUI(Gui_interface* worker, Graphic_interface* window) :
+GUI::GUI(Gui_interface* worker, Window_interface* window, Settings* settings) :
 	worker(worker),
-	window(window)
+	window(window),
+	settings(settings)
 {
 	t_background.push_back(Texture::generate());
 	if (!t_background[0]->load("../data/image/castle_1920_1080_my.jpeg"))
 		Log::add("gui", "cannot load image: ");
 	s_background.push_back(Sprite::generate());
 	s_background[0]->set_texture(*t_background[0]);
+	s_background[0]->set_scale((double)settings->get_screen().x / 1920, (double)settings->get_screen().y / 1080);
+	window->set_screen(gi::Rect(0, 0, settings->get_screen().x, settings->get_screen().y));
 }
 
 void GUI::work()
@@ -63,13 +66,31 @@ void GUI::draw()
 
 void GUI::set_coordinates()
 {
+	if (window->get_screen_size() != settings->get_screen())
+	{
+		s_background[0]->set_scale((double)settings->get_screen().x / 1920, (double)settings->get_screen().y / 1080);
+		window->set_screen(gi::Rect(0, 0, settings->get_screen().x, settings->get_screen().y));
+	}
 	std::vector<gi::Vector> pos(Position_type::count_of_types);
-	pos[left_up] = { 30, 30 };
-	pos[left_down] = { 30, 1050 };
-	pos[right_up] = { 1890, 30 };
-	pos[right_down] = { 1890, 1050 };
-	pos[exact_centre] = { 960, 540 };
-	pos[shifting_space] = { 1200, 500 };
+
+	if (settings->get_screen() != gi::Vector(1200, 800))
+	{
+		pos[left_up] = { 30, 30 };
+		pos[left_down] = { 30, 1050 };
+		pos[right_up] = { 1890, 30 };
+		pos[right_down] = { 1890, 1050 };
+		pos[exact_centre] = { 960, 540 };
+		pos[shifting_space] = { 1200, 500 };
+	}
+	else
+	{
+		pos[left_up] = { 30, 30 };
+		pos[left_down] = { 30, 1050 };
+		pos[right_up] = { 1890, 30 };
+		pos[right_down] = { 1890, 1050 };
+		pos[exact_centre] = { 960, 540 };
+		pos[shifting_space] = { 800, 400 };
+	}
 
 	for (auto it : objects)
 	{

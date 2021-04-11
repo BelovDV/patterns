@@ -21,8 +21,8 @@ namespace gi
 	public:
 		Object(Position_type type);
 	public:
-		virtual void draw(Graphic_interface& window) const = 0;
-		virtual void draw(Graphic_interface* window) const
+		virtual void draw(Window_interface& window) const = 0;
+		virtual void draw(Window_interface* window) const
 		{
 			this->draw(*window);
 		}
@@ -53,7 +53,7 @@ namespace gi
 	public:
 		Label(Position_type position, gi::Text* text);
 	public:
-		virtual void draw(Graphic_interface& window) const override;
+		virtual void draw(Window_interface& window) const override;
 		const gi::Text& get_text() { return *text; }
 		virtual void set_position(Vector position) override;
 	protected:
@@ -75,7 +75,7 @@ namespace gi
 	public:
 		List_objects(Position_type position, std::vector<Object*>&& objects);
 	public:
-		virtual void draw(Graphic_interface& window) const override;
+		virtual void draw(Window_interface& window) const override;
 	private:
 		std::vector<Object*> objects;
 	};

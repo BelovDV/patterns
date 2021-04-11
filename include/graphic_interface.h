@@ -2,7 +2,7 @@
 
 #include <string>
 
-class Graphic_interface;
+class Window_interface;
 
 namespace gi
 {
@@ -25,6 +25,8 @@ namespace gi
 	{
 		Vector(int x = 0, int y = 0) : x(x), y(y) {}
 		int x, y;
+		bool operator==(Vector other) { return x == other.x && y == other.y; }
+		bool operator!=(Vector other) { return !operator==(other); }
 	};
 	struct Rect
 	{
@@ -64,23 +66,9 @@ namespace gi
 	class Drawable
 	{
 	public:
-		virtual void draw(Graphic_interface& window) const = 0;
+		virtual void draw(Window_interface& window) const = 0;
 	};
 }
-
-class Graphic_interface
-{
-public:
-	
-public:
-	Graphic_interface& operator*() { return *this; }
-	const Graphic_interface& operator*() const { return *this; }
-public:
-	virtual void display() = 0;
-	virtual bool is_open() = 0;
-	virtual bool poll_event(gi::Event& event) = 0;
-	virtual gi::Vector get_mouse_position() = 0;
-};
 
 namespace gi
 {
@@ -97,7 +85,7 @@ namespace gi
 		virtual void set_font(Font* font) = 0;
 		virtual void set_color(Color) = 0;
 		virtual void set_text(const std::string& text) = 0;
-		virtual void draw(Graphic_interface& window) const = 0;
+		virtual void draw(Window_interface& window) const = 0;
 	};
 	class Sprite : public Drawable
 	{
@@ -105,15 +93,16 @@ namespace gi
 		static Sprite* generate();
 	public:
 		virtual void set_texture(const Texture& texture) = 0;
-		virtual void draw(Graphic_interface& window) const = 0;
+		virtual void draw(Window_interface& window) const = 0;
 		virtual void set_position(Vector position) = 0;
+		virtual void set_scale(double x_scale, double y_scale) = 0;
 	};
 	class Shape_rect : public Drawable
 	{
 	public:
 		static Shape_rect* generate();
 	public:
-		virtual void draw(Graphic_interface& window) const = 0;
+		virtual void draw(Window_interface& window) const = 0;
 		virtual void set_inner_color(gi::Color color) = 0;
 		virtual void set_outline_color(gi::Color color) = 0;
 		void set_rect(Rect rect) { area = rect; }

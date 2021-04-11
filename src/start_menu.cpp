@@ -10,7 +10,14 @@ Start_menu::Start_menu(Settings& settings) :
 
 void Start_menu::options_screen()
 {
-
+	if (last_target_name == "1920:1080")
+		settings.set_screen(1920, 1080);
+	else if (last_target_name == "1820:1080")
+		settings.set_screen(1820, 1080);
+	else if (last_target_name == "1200:800")
+		settings.set_screen(1200, 800);
+	else
+		Log::add("options_screen", "don't find screen");
 }
 
 void Start_menu::options_fonts()
@@ -67,11 +74,11 @@ void Start_menu::set_event(int id)
 
 	if (last_target_name == "apply")
 	{
-		if (position == "screen")
-			options_screen();
-		else if (position == "fonts")
+		if (position == "fonts")
 			options_fonts();
 	}
+	if (last_position == "screen")
+		options_screen();
 
 	if (position == "exit")
 		gui_condition = Gui_interface::Condition::exit;
