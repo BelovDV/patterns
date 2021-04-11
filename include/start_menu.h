@@ -1,11 +1,10 @@
 #pragma once
 
-#include "../include/interactive_fiction.h"
-#include "../include/settings.h"
-#include "../include/gui.h"
-#include "../include/gui_interface.h"
-
-#include <SFML/Graphics.hpp>
+#include "interactive_fiction.h"
+#include "settings.h"
+#include "gui.h"
+#include "gui_interface.h"
+#include "text.h"
 
 class Start_menu : Interactive_fiction, public Gui_interface
 {

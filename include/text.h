@@ -1,27 +1,28 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include "graphic_interface.h"
+
 #include <vector>
+#include <string>
 #include <memory>
 
 class Text_editor
 {
 public:
-	Text_editor(int size, const std::string& font_file, sf::Color color = sf::Color::Black, bool italic = false, bool bold = false);
+	Text_editor(int size, const std::string& font_file, gi::Color color = gi::Color(0, 0, 0));
 public:
-	sf::Text generate(const std::string& text, sf::Vector2i position = sf::Vector2i(0, 0));
-	sf::Text generate(const std::string& text, sf::Vector2i position, sf::Color color, bool italic, bool bold);
-	void set_text(sf::Text pattern) { text = pattern; }
+	gi::Text* generate(const std::string& text, gi::Vector position = gi::Vector(0, 0));
+	void set_text(gi::Text* pattern);
 	void set_font(const std::string& file_name);
-	void set_size(int size) { text.setCharacterSize(size); }
-	const sf::Text& get_text() { return text; }
+	void set_size(int size) { text->set_size(size); }
+	int get_size() { return text->get_size(); }
+	const gi::Text& get_text() { return *text; }
 	int get_number_line(const std::string& string);
 	int get_length_line(const std::string& string);
-	int get_size() { return text.getCharacterSize(); }
 	const std::string& get_font_file() { return font_file; }
 private:
-	sf::Text text;
-	sf::Font font;
+	gi::Text* text;
+	gi::Font* font;
 	std::string font_file;
 };
 
@@ -39,6 +40,5 @@ namespace Text
 	const extern std::vector<std::string> names;
 	extern std::vector<std::shared_ptr<Text_editor>> patterns;
 	
-	sf::Text generate(Type type, const std::string& text, sf::Vector2i position = sf::Vector2i(0, 0));
-	sf::Text generate(Type type, const std::string& text, sf::Vector2i position, sf::Color color, bool italic, bool bold);
+	gi::Text* generate(Type type, const std::string& text, gi::Vector position = gi::Vector(0, 0));
 }

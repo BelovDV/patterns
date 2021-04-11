@@ -1,17 +1,16 @@
 #include "../include/gui.h"
 
-using namespace Gui_objects;
+using namespace gi;
 
-GUI::GUI(Gui_interface* worker) :
+GUI::GUI(Gui_interface* worker, Graphic_interface* window) :
 	worker(worker),
-	window(sf::VideoMode(1820, 1080), "", sf::Style::None)
+	window(window)
 {
-	t_background.push_back(new sf::Texture);
-	if (!t_background[0]->loadFromFile("../data/image/castle_1920_1080_my.jpeg"))
+	t_background.push_back(Texture::generate());
+	if (!t_background[0]->load("../data/image/castle_1920_1080_my.jpeg"))
 		Log::add("gui", "cannot load image: ");
-	s_background.push_back(sf::Sprite(*t_background[0]));
-
-	window.setPosition(sf::Vector2i(0, 0));
+	s_background.push_back(Sprite::generate());
+	s_background[0]->set_texture(*t_background[0]);
 }
 
 void GUI::work()
@@ -21,52 +20,50 @@ void GUI::work()
 	set_coordinates();
 	draw();
 
-	while (window.isOpen())
+	while (window->is_open())
 	{
-		sf::Event event;
-		while (window.pollEvent(event))
+		gi::Event event;
+		while (window->poll_event(event))
 		{
-			if (event.type == sf::Event::EventType::MouseMoved)
+			if (event.type == gi::Event_type::mouse_moved)
 				event_movemouse();
-			else if (event.type == sf::Event::EventType::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+			else if (event.type == gi::Event_type::mouse_button_pressed)
 				event_pressmouse();
-			else if (event.type == sf::Event::EventType::KeyPressed)
-				event_presskey(event.key.code);
+			else if (event.type == gi::Event_type::key_pressed)
+				event_presskey(event.keycode);
 
 			draw();
 		}
 
 		if (worker->get_condition() == Gui_interface::Condition::exit)
 			break;
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-			break; // debug
 	}
 }
 
 void GUI::draw()
 {
-	window.draw(s_background[0]);
+	s_background[0]->draw(*window);
 
 	for (auto it : objects)
 	{
-		window.draw(*it);
-		// TODO - change position according text_type (for example - tab for offer_small)
+		it->draw(window);
 
-		sf::RectangleShape rect({ it->get_area().width, it->get_area().height });
-		rect.move(it->get_area().left, it->get_area().top);
-		rect.setFillColor(sf::Color::Transparent);
-		rect.setOutlineColor(sf::Color::White);
-		rect.setOutlineThickness(1);
-		window.draw(rect);
+		gi::Shape_rect* vsp = gi::Shape_rect::generate();
+		auto rect = it->get_area();
+		rect.width += 10;
+		vsp->set_rect(rect);
+		
+		vsp->set_inner_color(gi::Color(0, 0, 0, 0));
+		vsp->set_outline_color(gi::Color(100, 100, 100));
+		vsp->draw(*window);
 	}
 
-	window.display();
+	window->display();
 }
 
 void GUI::set_coordinates()
 {
-	std::vector<sf::Vector2f> pos(Position_type::count_of_types);
+	std::vector<gi::Vector> pos(Position_type::count_of_types);
 	pos[left_up] = { 30, 30 };
 	pos[left_down] = { 30, 1050 };
 	pos[right_up] = { 1890, 30 };
@@ -76,9 +73,11 @@ void GUI::set_coordinates()
 
 	for (auto it : objects)
 	{
-		it->set_position(pos[it->get_pos_type()]);
+		auto& position = pos[it->get_pos_type()];
 
-		pos[it->get_pos_type()].y = it->get_area().height + it->get_area().top;
+		it->set_position(position);
+
+		position.y = it->get_area().height + it->get_area().top;
 	}
 
 	// TODO return to angle/centre
@@ -89,7 +88,7 @@ void GUI::event_movemouse()
 	for (auto it : selected)
 		it->select_off();
 	selected.clear();
-	auto coord = sf::Mouse::getPosition();
+	auto coord = window->get_mouse_position();
 	for (auto it : executable)
 	{
 		auto iter = dynamic_cast<Object*>(it);
@@ -102,7 +101,7 @@ void GUI::event_movemouse()
 
 void GUI::event_pressmouse()
 {
-	auto coord = sf::Mouse::getPosition();
+	auto coord = window->get_mouse_position();
 	for (auto it : executable)
 		if (dynamic_cast<Object*>(it)->contain(coord))
 		{
@@ -113,7 +112,7 @@ void GUI::event_pressmouse()
 	set_coordinates();
 }
 
-void GUI::event_presskey(sf::Keyboard::Key key)
+void GUI::event_presskey(int key)
 {
 
 }
@@ -128,8 +127,6 @@ void GUI::take_objects()
 
 	Gui_interface::Target_form form(objects);
 	worker->get_targets(form);
-
-	std::sort(objects.begin(), objects.end(), [](Object* a, Object* b) {return a->get_number() < b->get_number(); });
 
 	for (auto it : objects)
 	{
