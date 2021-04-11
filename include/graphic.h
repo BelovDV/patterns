@@ -1,18 +1,21 @@
 #pragma once
 
 #include "graphic_interface.h"
+#include "window_interface.h"
 
 #include <SFML/Graphics.hpp>
 
-class Graphic : public Graphic_interface
+class Window : public Window_interface
 {
 public:
-	Graphic();
+	Window(int width, int heigh);
 public:
 	virtual void display() override;
 	virtual bool is_open() override;
 	virtual bool poll_event(gi::Event& event) override;
 	virtual gi::Vector get_mouse_position() override;
+	virtual void set_screen(gi::Rect rect) override;
+	virtual gi::Vector get_screen_size() override;
 public:
 	void draw(const sf::Drawable& object) { window.draw(object); }
 private:
@@ -33,7 +36,7 @@ public:
 	virtual void set_font(gi::Font* font) override;
 	virtual void set_color(gi::Color c) override { text.setColor(sf::Color(c.r, c.g, c.b)); }
 	virtual void set_text(const std::string& string) override { text.setString(string); }
-	virtual void draw(Graphic_interface& window) const override { dynamic_cast<Graphic*>(&window)->draw(text); }
+	virtual void draw(Window_interface& window) const override { dynamic_cast<Window*>(&window)->draw(text); }
 public:
 	sf::Text text;
 };
@@ -51,13 +54,14 @@ class Font : public gi::Font, public sf::Font
 class Sprite : public gi::Sprite, public sf::Sprite
 {
 	virtual void set_texture(const gi::Texture& texture) override;
-	virtual void draw(Graphic_interface& window) const override;
+	virtual void draw(Window_interface& window) const override;
 	virtual void set_position(gi::Vector position) override;
+	virtual void set_scale(double x_scale, double y_scale) override;
 };
 
 class Shape_rect : public gi::Shape_rect
 {
-	virtual void draw(Graphic_interface& window) const override;
+	virtual void draw(Window_interface& window) const override;
 	virtual void set_inner_color(gi::Color color) override;
 	virtual void set_outline_color(gi::Color color) override;
 private:

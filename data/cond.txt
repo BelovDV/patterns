@@ -55,8 +55,10 @@ first second
 
 screen
 Don't_work
-1
+3
 1920:1080 options
+1820:1080 options
+1200:800 options
 0
 
 exit_message

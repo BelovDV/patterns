@@ -11,6 +11,7 @@ public:
 public:
 	void set_screen(int width, int height);
 	gi::Vector get_screen();
+	bool need_reload_window();
 
 	void set_text(Text::Type type, gi::Text& pattern);
 	void set_font(Text::Type type, const std::string& file_name);

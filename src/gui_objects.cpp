@@ -11,7 +11,7 @@ gi::Label::Label(Position_type position, gi::Text* text) :
 	area = text->get_bounds();
 }
 
-void gi::Label::draw(Graphic_interface& target) const
+void gi::Label::draw(Window_interface& target) const
 {
 	text->draw(target);
 }
@@ -52,7 +52,7 @@ gi::List_objects::List_objects(Position_type position, std::vector<Object*>&& ob
 	objects(objects)
 {}
 
-void gi::List_objects::draw(Graphic_interface& window) const
+void gi::List_objects::draw(Window_interface& window) const
 {
 	for (auto& it : objects)
 		it->draw(window);

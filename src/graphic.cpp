@@ -1,22 +1,22 @@
 #include "../include/graphic.h"
 
-Graphic::Graphic() :
-	window(sf::VideoMode(1820, 1080), "", sf::Style::None)
+Window::Window(int x, int y) :
+	window(sf::VideoMode(x, y), "", sf::Style::None)
 {
 	window.setPosition(sf::Vector2i(0, 0));
 }
 
-void Graphic::display()
+void Window::display()
 {
 	window.display();
 }
 
-bool Graphic::is_open()
+bool Window::is_open()
 {
 	return window.isOpen();
 }
 
-bool Graphic::poll_event(gi::Event& event)
+bool Window::poll_event(gi::Event& event)
 {
 	event.type = gi::Event_type::none;
 	sf::Event vsp;
@@ -38,10 +38,24 @@ bool Graphic::poll_event(gi::Event& event)
 	return true;
 }
 
-gi::Vector Graphic::get_mouse_position()
+gi::Vector Window::get_mouse_position() /// TODO - check (Ivan, incorrect coordinate)
 {
 	auto ans = sf::Mouse::getPosition();
+	auto delta = window.getPosition();
+	ans -= delta;
 	return gi::Vector(ans.x, ans.y);
+}
+
+void Window::set_screen(gi::Rect rect)
+{
+	window.create(sf::VideoMode(rect.width, rect.height), "", sf::Style::None);
+	window.setPosition(sf::Vector2i(rect.left, rect.top));
+}
+
+gi::Vector Window::get_screen_size()
+{
+	auto size = window.getSize();
+	return gi::Vector(size.x, size.y);
 }
 
 gi::Texture* gi::Texture::generate()
@@ -91,9 +105,9 @@ bool Font::load(const std::string& file)
 	return loadFromFile(file);
 }
 
-void Sprite::draw(Graphic_interface& window) const
+void Sprite::draw(Window_interface& window) const
 {
-	dynamic_cast<Graphic&>(window).draw(*this);
+	dynamic_cast<Window&>(window).draw(*this);
 }
 
 void Sprite::set_position(gi::Vector position)
@@ -106,14 +120,19 @@ void Sprite::set_texture(const gi::Texture& texture)
 	setTexture(dynamic_cast<const sf::Texture&>(texture));
 }
 
-void Shape_rect::draw(Graphic_interface& window) const
+void Sprite::set_scale(double x_scale, double y_scale)
+{
+	setScale(sf::Vector2f(x_scale, y_scale));
+}
+
+void Shape_rect::draw(Window_interface& window) const
 {
 	sf::RectangleShape vsp(sf::Vector2f(area.width, area.height));
 	vsp.move(sf::Vector2f(area.left, area.top));
 	vsp.setFillColor(inner_color);
 	vsp.setOutlineColor(outline_color);
 	vsp.setOutlineThickness(1);
-	dynamic_cast<Graphic&>(window).draw(vsp);
+	dynamic_cast<Window&>(window).draw(vsp);
 }
 
 void Shape_rect::set_inner_color(gi::Color color)
