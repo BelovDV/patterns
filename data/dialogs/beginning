@@ -1,0 +1,43 @@
+beginning
+
+beginning
+Choose_your_race
+3
+people class
+sylvan class
+exit exit_message
+0
+
+class
+Choose_your_class
+4
+warrior troops
+magician troops
+supplier troops
+back beginning
+0
+
+troops
+Now,_you_can_choose_your_army
+3
+reset troops
+ready! apply
+back class
+0
+
+apply
+there_should_be_starting_game@now_(after_choosing_troops)
+1
+back(don't_ready_yet) beginning
+0
+
+exit_message
+Are_you_sure?
+2
+No beginning
+Yes exit
+0
+
+exit
+exit
+0

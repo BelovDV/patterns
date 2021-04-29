@@ -1,4 +1,4 @@
-#include "../include/log.h"
+#include "log.h"
 
 void Log::add(const std::string& source, const std::string& message)
 {
