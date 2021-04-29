@@ -1,0 +1,15 @@
+text_editor
+cant load font: ../data/font.ttf
+
+text_editor
+cant load font: ../data/font.ttf
+
+text_editor
+cant load font: ../data/font.ttf
+
+text_editor
+cant load font: ../data/font.ttf
+
+main
+begin
+
