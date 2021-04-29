@@ -1,3 +1,15 @@
-#include "../include/data.h"
+#include "data.h"
 
-const std::string Data::Constances::_file_name = "../data/data";
+const std::vector<std::string> Data::Constants::unit_parameters =
+        {
+        "lvl",
+        "attack",
+        "defense",
+        "damage min",
+        "damage max",
+        "hp",
+        "speed",
+        "initiative",
+        "shooter",
+        "magician"
+        };

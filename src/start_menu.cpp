@@ -1,10 +1,10 @@
 #include <cstdlib>
 
-#include "../include/start_menu.h"
+#include "start_menu.h"
 
 
 Start_menu::Start_menu(Settings& settings, Gui_objects_abstract_factory* factory) :
-	Interactive_fiction("../data/cond.txt"),
+	Interactive_fiction("../data/dialogs/start_menu"),
 	settings(settings),
 	factory(factory)
 {}
@@ -88,6 +88,10 @@ void Start_menu::set_event(int id)
 
 	if (position == "exit")
 		gui_condition = Gui_interface::Condition::exit;
+	else if (position == "new game") {
+        gui_condition = Gui_interface::Condition::beginning;
+        position = "main";
+    }
 	else
 		gui_condition = Gui_interface::Condition::none;
 }

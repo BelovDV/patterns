@@ -1,4 +1,4 @@
-#include "../include/settings.h"
+#include "settings.h"
 
 Settings::Settings(const std::string& file_name) :
 	file_name(file_name)

@@ -2,16 +2,16 @@
 
 #include<string>
 #include<bitset>
+#include <vector>
 
 namespace Data
 {
-	struct Constances
+	struct Constants
 	{
-		const static std::string _file_name;
-
 		static const int unit_number_info = 10;
 		static const int unit_number_skills = 2;
 		static const int class_number_skills = 2;
+		static const std::vector<std::string> unit_parameters;
 	};
 
 	namespace Race
@@ -46,11 +46,12 @@ namespace Data
 
 		struct Data
 		{
-			Transform_active start_active[Constances::unit_number_info];
-			Transform_passive start_passive[Constances::unit_number_info];
-			std::bitset<Constances::class_number_skills> skills;
+			Transform_active start_active[Constants::unit_number_info];
+			Transform_passive start_passive[Constants::unit_number_info];
+			std::bitset<Constants::class_number_skills> skills;
 			int id;
 			std::string name;
+			int start_money_A, start_money_B, start_money_C;
 		};
 	}
 
@@ -81,8 +82,8 @@ namespace Data
 
 		struct Info
 		{
-			int parameter[Constances::unit_number_info];
-			std::bitset<Constances::unit_number_skills> skills;
+			int parameter[Constants::unit_number_info];
+			std::bitset<Constants::unit_number_skills> skills;
 		};
 
 		struct Data

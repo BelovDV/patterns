@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Game_fight"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/dunger/Desktop/files/develop/patterns/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/dunger/Desktop/files/develop/patterns/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/dunger/Desktop/files/develop/patterns/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="game_fight">
+				<Option output="/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/game_fight" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dunger/Desktop/files/develop/patterns/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/dunger/Desktop/files/develop/patterns/include"/>
+					<Add directory="/home/dunger/Desktop/files/develop/patterns/graphic/include"/>
+					<Add directory="/home/dunger/Desktop/files/develop/patterns/game/include"/>
+					<Add directory="/home/dunger/Desktop/files/develop/patterns/ai/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 game_fight"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="game_fight/fast">
+				<Option output="/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/game_fight" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dunger/Desktop/files/develop/patterns/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/dunger/Desktop/files/develop/patterns/include"/>
+					<Add directory="/home/dunger/Desktop/files/develop/patterns/graphic/include"/>
+					<Add directory="/home/dunger/Desktop/files/develop/patterns/game/include"/>
+					<Add directory="/home/dunger/Desktop/files/develop/patterns/ai/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 game_fight/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/dunger/Desktop/files/develop/patterns/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/ai/src/ai.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/game/include/unit.h">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/game/src/field.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/game/src/position.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/game/src/unit.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/graphic/src/graphic.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/graphic/src/gui.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/graphic/src/gui_objects.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/graphic/src/gui_objects_factory.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/graphic/src/text.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/main.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/src/beginning.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/src/data.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/src/database.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/src/database_loader.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/src/interactive_fiction.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/src/log.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/src/settings.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/src/start_menu.cpp">
+			<Option target="game_fight"/>
+		</Unit>
+		<Unit filename="/home/dunger/Desktop/files/develop/patterns/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
