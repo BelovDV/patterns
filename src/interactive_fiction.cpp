@@ -1,5 +1,5 @@
-#include "../include/interactive_fiction.h"
-#include "../include/log.h"
+#include "interactive_fiction.h"
+#include "log.h"
 
 #include <fstream>
 

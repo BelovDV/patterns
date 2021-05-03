@@ -8,6 +8,9 @@ public:
 	enum Condition
 	{
 		none,
+		beginning,
+		loading,
+		game,
 		exit
 	};
 	class Target_form
@@ -28,5 +31,5 @@ public:
 public:
 	virtual void get_targets(Target_form& form) = 0;
 	virtual void set_event(int id) = 0;
-	virtual Condition get_condition() = 0;
+    virtual Condition get_condition() = 0;
 };

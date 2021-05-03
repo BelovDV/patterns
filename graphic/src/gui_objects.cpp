@@ -1,5 +1,5 @@
-#include "../include/gui_objects_concrete.h"
-#include "../include/log.h"
+#include "gui_objects_concrete.h"
+#include "log.h"
 
 gi::Object::Object(Position_type type) :
 	pos_type(type)
@@ -78,4 +78,16 @@ void gi_c::basic::List_objects::draw(Window_interface& window) const
 void gi_c::basic::List_objects::set_position(gi::Vector pos)
 {
 
+}
+
+void gi_c::rect::Button::draw(Window_interface& window) const
+{
+	gi::Shape_rect* vsp = gi::Shape_rect::generate();
+	auto rect = get_area();
+	vsp->set_rect(rect);
+	
+	vsp->set_inner_color(gi::Color(0, 0, 0, 0));
+	vsp->set_outline_color(gi::Color(100, 100, 100));
+	vsp->draw(window);
+	gi_c::basic::Button::draw(window);
 }

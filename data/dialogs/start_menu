@@ -10,20 +10,8 @@ exit exit_message
 0
 
 new_game
-There_will_be_long_describing_text,@now_only:@@___Choose_the_race!
-3
-first_race choosing_class
-second_race choosing_class
-back main
+new_game
 0
-
-choosing_class
-It's_the_same..._And_don't_ready...@@___Choose_the_class!
-4
-warrior choosing_class
-magician choosing_class
-trader choosing_class
-back new_game
 0
 
 load_game

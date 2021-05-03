@@ -101,6 +101,27 @@ namespace gi_c
 		public:
 		};
 	}
+	namespace rect
+	{
+		class Label : public basic::Label
+		{
+		public:
+			Label(gi::Position_type position, gi::Text* text) : basic::Label(position, text) {}
+		};
+		class Button : public basic::Button
+		{
+		public:
+			Button(gi::Position_type position, int id, gi::Text* text) : basic::Button(position, id, text) {}
+			Button(gi::Position_type position, int id, gi::Text* text, gi::Rect area) : basic::Button(position, id, text, area) {}
+		public:
+			virtual void draw(Window_interface& window) const override;
+		};
+		class List_objects : public basic::List_objects
+		{
+		public:
+			List_objects(gi::Position_type position, std::vector<Object*>&& objects) : basic::List_objects(position, std::move(objects)) {}
+		};
+	}
 	namespace bactexture
 	{
 		class Label : public basic::Label

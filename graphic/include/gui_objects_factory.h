@@ -49,3 +49,11 @@ private:
 private:
 	gi::Texture* background;
 };
+
+class Gui_objects_rect_factory : public Gui_objects_abstract_factory
+{
+	virtual gi::Label* get_label(gi::Position_type position, gi::Text* text) override;
+	virtual gi::Button* get_button(gi::Position_type position, int id, gi::Text* text) override;
+	virtual gi::Button* get_button(gi::Position_type position, int id, gi::Text* text, gi::Rect rect) override;
+	virtual gi::List_objects* get_list_objects(gi::Position_type position, std::vector<gi::Object*>&& objects) override;
+};

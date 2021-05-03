@@ -34,10 +34,10 @@ public:
 	virtual gi::Rect get_bounds() const override;
 	virtual int get_size() const override { return text.getCharacterSize(); }
 	virtual void set_font(gi::Font* font) override;
-	virtual void set_color(gi::Color c) override { text.setColor(sf::Color(c.r, c.g, c.b)); }
+	virtual void set_color(gi::Color c) override { text.setFillColor(sf::Color(c.r, c.g, c.b)); }
 	virtual void set_text(const std::string& string) override { text.setString(string); }
 	virtual void draw(Window_interface& window) const override { dynamic_cast<Window*>(&window)->draw(text); }
-	virtual const std::string& get_text() const override { return text.getString(); }
+	virtual const std::string get_text() const override { return text.getString(); }
 public:
 	sf::Text text;
 };

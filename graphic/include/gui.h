@@ -6,11 +6,12 @@
 #include "gui_objects.h"
 #include "log.h"
 #include "settings.h"
+#include "../../game/include/position.h"
 
 class GUI
 {
 public:
-	GUI(Gui_interface* worker, Window_interface* window, Settings* settings);
+	GUI(Gui_interface* start, Gui_interface* beginning, Gui_interface* loading, Window_interface* window, Settings* settings);
 	~GUI();
 public:
 	void work();
@@ -27,7 +28,10 @@ private:
 	std::vector<gi::Object*> objects;
 	std::vector<gi::Executable*> executable;
 	std::vector<gi::Executable*> selected;
-	Gui_interface* worker;
+	Gui_interface* start;
+	Gui_interface* beginning;
+	Gui_interface* loading;
 	Window_interface* window;
 	Settings* settings;
+	Gui_interface* worker;
 };

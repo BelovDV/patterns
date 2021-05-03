@@ -1,4 +1,4 @@
-#include "../include/graphic.h"
+#include "graphic.h"
 
 Window::Window(int x, int y) :
 	window(sf::VideoMode(x, y), "", sf::Style::None)
@@ -38,7 +38,7 @@ bool Window::poll_event(gi::Event& event)
 	return true;
 }
 
-gi::Vector Window::get_mouse_position() /// TODO - check (Ivan, incorrect coordinate)
+gi::Vector Window::get_mouse_position()
 {
 	auto ans = sf::Mouse::getPosition();
 	auto delta = window.getPosition();

@@ -1,6 +1,6 @@
-#include "../include/gui_objects_factory.h"
-#include "../include/gui_objects_concrete.h"
-#include "../include/log.h"
+#include "gui_objects_factory.h"
+#include "gui_objects_concrete.h"
+#include "log.h"
 
 gi::Label* Gui_objects_basic_factory::get_label(gi::Position_type position, gi::Text* text)
 {
@@ -70,4 +70,24 @@ gi::Button* Gui_objects_backtexture_factory::get_button(gi::Position_type positi
 gi::List_objects* Gui_objects_backtexture_factory::get_list_objects(gi::Position_type position, std::vector<gi::Object*>&& objects)
 {
 	return new gi_c::bactexture::List_objects(position, std::move(objects));
+}
+
+gi::Label* Gui_objects_rect_factory::get_label(gi::Position_type position, gi::Text* text)
+{
+	return new gi_c::rect::Label(position, text);
+}
+
+gi::Button* Gui_objects_rect_factory::get_button(gi::Position_type position, int id, gi::Text* text)
+{
+	return new gi_c::rect::Button(position, id, text);
+}
+
+gi::Button* Gui_objects_rect_factory::get_button(gi::Position_type position, int id, gi::Text* text, gi::Rect rect)
+{
+	return new gi_c::rect::Button(position, id, text, rect);
+}
+
+gi::List_objects* Gui_objects_rect_factory::get_list_objects(gi::Position_type position, std::vector<gi::Object*>&& objects)
+{
+	return new gi_c::rect::List_objects(position, std::move(objects));
 }

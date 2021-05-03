@@ -1,5 +1,5 @@
-#include "../include/text.h"
-#include "../include/log.h"
+#include "text.h"
+#include "log.h"
 
 Text_editor::Text_editor(int size, const std::string& font_file, gi::Color color) :
 	font_file(font_file),

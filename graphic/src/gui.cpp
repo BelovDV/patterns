@@ -1,11 +1,14 @@
-#include "../include/gui.h"
+#include "gui.h"
 
 using namespace gi;
 
-GUI::GUI(Gui_interface* worker, Window_interface* window, Settings* settings) :
-	worker(worker),
+GUI::GUI(Gui_interface* start, Gui_interface* beginning, Gui_interface* loading, Window_interface* window, Settings* settings) :
+	start(start),
+	beginning(beginning),
+	loading(loading),
 	window(window),
-	settings(settings)
+	settings(settings),
+	worker(start)
 {
 	t_background.push_back(Texture::generate());
 	if (!t_background[0]->load("../data/image/castle_1920_1080_my.jpeg"))
@@ -44,7 +47,14 @@ void GUI::work()
 			draw();
 		}
 
-		if (worker->get_condition() == Gui_interface::Condition::exit)
+		if (worker->get_condition() == Gui_interface::Condition::beginning)
+		{
+			Log::add("gui", "beginning");
+			worker = beginning;
+			take_objects();
+			set_coordinates();
+		}
+		else if (worker->get_condition() == Gui_interface::Condition::exit)
 			break;
 	}
 }
@@ -54,17 +64,7 @@ void GUI::draw()
 	s_background[0]->draw(*window);
 
 	for (auto it : objects)
-	{
 		it->draw(window);
-
-		gi::Shape_rect* vsp = gi::Shape_rect::generate();
-		auto rect = it->get_area();
-		vsp->set_rect(rect);
-		
-		vsp->set_inner_color(gi::Color(0, 0, 0, 0));
-		vsp->set_outline_color(gi::Color(100, 100, 100));
-		vsp->draw(*window);
-	}
 
 	window->display();
 }
