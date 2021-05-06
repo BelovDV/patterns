@@ -16,13 +16,24 @@ void Field::generate(Coordinate center, int dd)
 {
     for (int u = -dd; u <= dd; ++u)
         for (int d = -dd; d <= dd; ++d)
-            if (field.find(Coordinate(u, d)) == field.end())
-                generate(Coordinate(u, d));
+            if (u - d <= dd && u - d >= -dd &&
+            (field.find(Coordinate(center.u + u, center.d + d)) == field.end() ||
+            field[Coordinate(center.u + u, center.d + d)].terrain == none))
+                generate(Coordinate(center.u + u, center.d + d));
 }
 
 Field::Cell Field::get_cell(Coordinate coord)
 {
     if (coord.u < u_n + 2 || coord.u > u_p - 2 || coord.d < d_n + 2 || coord.d > d_p - 2)
-        generate(coord, 4);
+        generate(coord, 8);
     return field[coord];
+}
+
+Field::Cell Field::check_cell(Coordinate coord) const {
+    if (field.find(coord) != field.end())
+    {
+        auto it = field.find(coord);
+        return it->second;
+    }
+    return {};
 }

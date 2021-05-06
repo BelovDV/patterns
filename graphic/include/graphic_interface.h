@@ -6,13 +6,22 @@ class Window_interface;
 
 namespace gi
 {
-	enum Event_type
+	enum class Event_type
 	{
 		none,
 		mouse_moved,
 		mouse_button_pressed,
 		key_pressed
 	};
+	enum class Keycode
+    {
+	    none,
+	    up,
+	    left,
+	    right,
+	    down,
+	    space
+    };
 	struct Event
 	{
 		Event_type type;

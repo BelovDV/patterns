@@ -7,7 +7,7 @@ void Database_loader::load_unit(std::ifstream& in, Data::Unit::Data& data)
 	in >> data.id >> data.race >> data.name;
 	for (int i = 0; i != Data::Constants::unit_number_info; ++i)
 		in >> data.info.parameter[i];
-	in >> data.info.skills >> data.cost_A >> data.cost_B >> data.cost_C;
+	in >> data.info.skills >> data.cost_A >> data.cost_B >> data.cost_C >> data.image_id;
 }
 
 void Database_loader::load_class(std::ifstream& in, Data::Class::Data& data)
