@@ -92,6 +92,7 @@ namespace Data
 			int cost_A;
 			int cost_B;
 			int cost_C;
+			int image_id;
 			Info info;
 			std::string race;
 			std::string name;

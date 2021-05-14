@@ -2,13 +2,10 @@
 
 using namespace gi;
 
-GUI::GUI(Gui_interface* start, Gui_interface* beginning, Gui_interface* loading, Window_interface* window, Settings* settings) :
-	start(start),
-	beginning(beginning),
-	loading(loading),
+GUI::GUI(Gui_interface* worker, Window_interface* window, Settings* settings) :
 	window(window),
 	settings(settings),
-	worker(start)
+	worker(worker)
 {
 	t_background.push_back(Texture::generate());
 	if (!t_background[0]->load("../data/image/castle_1920_1080_my.jpeg"))
@@ -47,14 +44,7 @@ void GUI::work()
 			draw();
 		}
 
-		if (worker->get_condition() == Gui_interface::Condition::beginning)
-		{
-			Log::add("gui", "beginning");
-			worker = beginning;
-			take_objects();
-			set_coordinates();
-		}
-		else if (worker->get_condition() == Gui_interface::Condition::exit)
+		if (worker->get_condition() == Gui_interface::exit)
 			break;
 	}
 }

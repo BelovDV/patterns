@@ -34,16 +34,16 @@ void Beginning::get_targets(Gui_interface::Target_form& form)
     }
     else
     {
-        auto bought = game_position->get_list_units(Position::first);
+        auto bought = game_position->get_count_list_units(Position::player1);
         for (auto& it : bought)
             form.add(factory->get_label(space, Text::generate(Text::offer,
                     database.get_units()[it.first].name + " " + std::to_string(it.second))));
-        const auto& u_id = database.get_races_units()[game_position->get_race(Position::first)];
+        const auto& u_id = database.get_races_units()[game_position->get_race(Position::player1)];
         const auto& u_ref = database.get_units();
-        for (int i = 0; i != u_id.size(); ++i)
-            form.add(factory->get_label(space, Text::generate(Text::offer,
-                    u_ref[u_id[i]].name + "\talready"
-                    )));
+//        for (int i = 0; i != u_id.size(); ++i)
+//            form.add(factory->get_label(space, Text::generate(Text::offer,
+//                    u_ref[u_id[i]].name + "\talready"
+//                    )));
         form.add(factory->get_label(space, Text::generate(Text::offer,
                     "money A " + std::to_string(p_money[0]))));
         form.add(factory->get_label(space, Text::generate(Text::offer,
@@ -65,32 +65,31 @@ void Beginning::get_targets(Gui_interface::Target_form& form)
 
 void Beginning::set_event(int id)
 {
-    if (position == "troops" && id < database.get_races_units()[game_position->get_race(Position::first)].size())
+    if (position == "troops" && id < database.get_races_units()[game_position->get_race(Position::player1)].size())
     {
-        int u_id = database.get_races_units()[game_position->get_race(Position::first)][id];
+        int u_id = database.get_races_units()[game_position->get_race(Position::player1)][id];
         const Data::Unit::Data& unit_data = database.get_units()[u_id];
         if (p_money[0] >= unit_data.cost_A && p_money[1] >= unit_data.cost_B && p_money[2] >= unit_data.cost_C)
         {
             p_money[0] -= unit_data.cost_A;
             p_money[1] -= unit_data.cost_B;
             p_money[2] -= unit_data.cost_C;
-            game_position->add_unit(Position::first,
-                                    database.get_races_units()
-                                    [game_position->get_race(Position::first)][id]);
+            auto race = game_position->get_race(Position::player1);
+            game_position->add_unit(Position::player1, Unit(database.get_races_units()[race][id]));
         }
     }
     if (position == "troops")
     {
-        if (id >= database.get_races_units()[game_position->get_race(Position::first)].size())
-            press(id - database.get_races_units()[game_position->get_race(Position::first)].size());
+        if (id >= database.get_races_units()[game_position->get_race(Position::player1)].size())
+            press(id - database.get_races_units()[game_position->get_race(Position::player1)].size());
     }
     else
         press(id);
-    if (position == "troops" && last_target_name == "reset" || last_position == "troops") {
+    if (position == "troops" && (last_target_name == "reset" || last_position == "troops")) {
         last_target_name = "none";
         last_position = "none";
-        game_position->reset(Position::first);
-        auto& c_data = database.get_classes()[id - database.get_races_units()[game_position->get_race(Position::first)].size()];
+        game_position->reset(Position::player1);
+        auto& c_data = database.get_classes()[id - database.get_races_units()[game_position->get_race(Position::player1)].size()];
         p_money[0] = c_data.start_money_A;
         p_money[1] = c_data.start_money_B;
         p_money[2] = c_data.start_money_C;
@@ -98,14 +97,16 @@ void Beginning::set_event(int id)
     if (position == "exit")
         gui_condition = Gui_interface::Condition::exit;
     if (last_position == "beginning" && position == "class") {
-        game_position->set_race(Position::first, id);
+        game_position->set_race(Position::player1, id);
     }
     if (last_position == "class" && position == "troops") {
         last_position = "none";
-        game_position->set_class(Position::first, id);
+        game_position->set_class(Position::player1, id);
         auto& c_data = database.get_classes()[id];
         p_money[0] = c_data.start_money_A;
         p_money[1] = c_data.start_money_B;
         p_money[2] = c_data.start_money_C;
     }
+    if (last_target_name == "back")
+        game_position->reset(Position::Player::player1);
 }

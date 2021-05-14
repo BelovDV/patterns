@@ -6,13 +6,22 @@ class Window_interface;
 
 namespace gi
 {
-	enum Event_type
+	enum class Event_type
 	{
 		none,
 		mouse_moved,
 		mouse_button_pressed,
 		key_pressed
 	};
+	enum class Keycode
+    {
+	    none,
+	    up,
+	    left,
+	    right,
+	    down,
+	    space
+    };
 	struct Event
 	{
 		Event_type type;
@@ -87,7 +96,7 @@ namespace gi
 		virtual void set_color(Color) = 0;
 		virtual void set_text(const std::string& text) = 0;
 		virtual void draw(Window_interface& window) const = 0;
-		virtual const std::string get_text() const = 0;
+		//virtual const std::string get_text() const = 0;
 	};
 	class Sprite : public Drawable
 	{

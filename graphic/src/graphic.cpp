@@ -30,9 +30,15 @@ bool Window::poll_event(gi::Event& event)
 	else if (vsp.type == sf::Event::EventType::KeyPressed)
 	{
 		event.type = gi::Event_type::key_pressed;
-		event.keycode = static_cast<int>(vsp.key.code);
+        event.keycode = static_cast<int>(gi::Keycode::none);
 
-		if (event.keycode == sf::Keyboard::Escape)
+        if (vsp.key.code == sf::Keyboard::Up) event.keycode = static_cast<int>(gi::Keycode::up);
+        if (vsp.key.code == sf::Keyboard::Right) event.keycode = static_cast<int>(gi::Keycode::right);
+        if (vsp.key.code == sf::Keyboard::Down) event.keycode = static_cast<int>(gi::Keycode::down);
+        if (vsp.key.code == sf::Keyboard::Left) event.keycode = static_cast<int>(gi::Keycode::left);
+        if (vsp.key.code == sf::Keyboard::Space) event.keycode = static_cast<int>(gi::Keycode::space);
+
+        if (vsp.key.code == sf::Keyboard::Escape)
 			window.close();
 	}
 	return true;

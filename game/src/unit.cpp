@@ -1,5 +1,4 @@
-#include "../include/unit.h"
-
+#include "unit.h"
 #include "database_loader.h"
 
 Unit::Unit(int id, Field::Coordinate coord) :
@@ -26,8 +25,6 @@ void Unit::set_coordinates(Field::Coordinate coordinate) {
 }
 
 bool Unit::operator<(const Unit &other) const {
-    if (time_position != other.time_position)
-        return time_position < other.time_position;
     return personal_id < other.personal_id;
 }
 

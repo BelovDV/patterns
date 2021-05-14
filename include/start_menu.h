@@ -15,7 +15,7 @@ private:
     virtual Gui_interface::Condition get_condition() override { return gui_condition; }
 	virtual void get_targets(Gui_interface::Target_form& form) override;
 	virtual void set_event(int id) override;
-private:
+private:    
 	Settings& settings;
 	Gui_interface::Condition gui_condition = Gui_interface::none;
 	Gui_objects_abstract_factory* factory;
